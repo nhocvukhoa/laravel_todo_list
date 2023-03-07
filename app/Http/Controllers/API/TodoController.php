@@ -15,4 +15,18 @@ class TodoController extends Controller
         
         return TodoCollection::collection($todos);
     }
+
+    public function store(Request $request)
+    {
+        $todo = new Todo;
+        $todo->content = $request->content;
+        $todo->checked = $request->checked;
+        $todo->completed = $request->completed;
+        $todo->created_at = now();
+        $todo->updated_at = now();
+        $todo->save();
+
+        $todos = Todo::get();
+        return TodoCollection::collection($todos);
+    }
 }
