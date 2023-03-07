@@ -12,7 +12,7 @@ class TodoController extends Controller
     public function index()
     {
         $todos = Todo::get();
-        
+
         return TodoCollection::collection($todos);
     }
 
@@ -27,6 +27,14 @@ class TodoController extends Controller
         $todo->save();
 
         $todos = Todo::get();
+        return TodoCollection::collection($todos);
+    }
+
+    public function delete(Request $request)
+    {
+        Todo::find($request->id)->delete();
+        $todos = Todo::get();
+
         return TodoCollection::collection($todos);
     }
 }
