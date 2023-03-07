@@ -37,4 +37,13 @@ class TodoController extends Controller
 
         return TodoCollection::collection($todos);
     }
+
+    public function deleteAll(Request $request)
+    {
+        $params = $request->params;
+        Todo::whereIn('id', $params)->delete();
+        $todos = Todo::get();
+
+        return TodoCollection::collection($todos);
+    }
 }
