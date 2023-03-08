@@ -10,4 +10,12 @@ class Todo extends Model
     use HasFactory;
 
     protected $table = 'todos';
+
+    protected $fillable = [
+        'content',
+        'checked',
+        'completed',
+        'created_at',
+        'updated_at',
+    ];
 }
