@@ -23,3 +23,4 @@ Route::get('/todos', [TodoController::class, 'index']);
 Route::post('/add', [TodoController::class, 'store']);
 Route::post('/delete', [TodoController::class, 'delete']);
 Route::post('/deleteAll', [TodoController::class, 'deleteAll']);
+Route::put('/doneAll', [TodoController::class, 'doneAll']);

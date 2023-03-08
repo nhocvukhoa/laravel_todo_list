@@ -18,15 +18,9 @@ class TodoController extends Controller
 
     public function store(Request $request)
     {
-        $todo = new Todo;
-        $todo->content = $request->content;
-        $todo->checked = $request->checked;
-        $todo->completed = $request->completed;
-        $todo->created_at = now();
-        $todo->updated_at = now();
-        $todo->save();
-
+        Todo::create($request->all());
         $todos = Todo::get();
+        
         return TodoCollection::collection($todos);
     }
 
@@ -42,6 +36,21 @@ class TodoController extends Controller
     {
         $params = $request->params;
         Todo::whereIn('id', $params)->delete();
+        $todos = Todo::get();
+
+        return TodoCollection::collection($todos);
+    }
+
+    public function doneAll(Request $request)
+    {
+        $params = $request->params;
+        $tasks= Todo::whereIn('id', $params)->get();
+
+        foreach ($tasks as $task) {
+            $task['completed'] = 1;
+            $task->save();
+        }
+
         $todos = Todo::get();
 
         return TodoCollection::collection($todos);
